@@ -9,7 +9,7 @@ export default props =>
                 <i className="fa fa-home"></i> Início
             </Link>
             <Link to="/users">
-                <i className="fa fa-address-card"></i> Registro
+                <i className="fa fa-address-card"></i> Cadastro
             </Link>
             <Link to="/login">
                 <i className="fa fa-user"></i> Login
