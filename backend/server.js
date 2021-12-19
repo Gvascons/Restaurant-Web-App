@@ -24,6 +24,40 @@ const users = [
 */
 // ##### DB #####
 
+const admin = [
+  {
+    "name": "João",
+    "password": "123",
+    "restaurants": [
+      {
+        "name": "Ariana Comes e Bebês",
+        "tel": "03123",
+        "email": "ariana@grande.org",
+        "bairro": "Seven Rings",
+        "num": "666",
+        "city": "Rua",
+        "rua": "Cidade",
+        "price": "$$$",
+        "desc": "I wanna! I got it!",
+        "idRest": 0
+      },
+      {
+        "name": "Bolagude Foods",
+        "tel": "0123",
+        "email": "lucascalabria@ymail.com",
+        "bairro": "Boa Viagem",
+        "num": "666",
+        "city": "Rua",
+        "rua": "Rua aaaaaaa",
+        "price": "$$$",
+        "desc": "aaaaaa",
+        "idRest": 1
+      }
+    ],
+    "id": 0
+  }
+] 
+
 app.get('/', (req, res) => {
   return res.json(admin)
 })
@@ -78,39 +112,6 @@ app.post('/usercrud', (req, res) => {
 
 // #########################################################
 
-const admin = [
-  {
-    "name": "João",
-    "password": "123",
-    "restaurants": [
-      {
-        "name": "Ariana Comes e Bebês",
-        "tel": "03123",
-        "email": "ariana@grande.org",
-        "bairro": "Seven Rings",
-        "num": "666",
-        "city": "Rua",
-        "rua": "Cidade",
-        "price": "$$$",
-        "desc": "I wanna! I got it!",
-        "idRest": 0
-      },
-      {
-        "name": "Bolagude Foods",
-        "tel": "0123",
-        "email": "lucascalabria@ymail.com",
-        "bairro": "Boa Viagem",
-        "num": "666",
-        "city": "Rua",
-        "rua": "Rua aaaaaaa",
-        "price": "$$$",
-        "desc": "aaaaaa",
-        "idRest": 1
-      }
-    ],
-    "id": 0
-  }
-] 
 
 app.post('/admin/addRestaurant/:index', (req, res) =>{
   const {index}  = req.params
