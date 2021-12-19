@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 import axios from 'axios'
 
+const r = React
+
 const headerProps = {
     icon: 'user',
     title: 'Login',
@@ -13,8 +15,7 @@ const initialState = {
     user: { name: '', password: ''},
     list: []
 }
-
-export default class UserCrud extends Component {
+export default class Login extends Component {
     state = { ...initialState }
 
     componentWillMount() {
@@ -73,7 +74,7 @@ export default class UserCrud extends Component {
                     <div className="col-12 col-md-6">
                         <div className="form-group">
                             <label>Senha</label>
-                            <input type="text" className="form-control"
+                            <input type="password" className="form-control"
                                 name="password"
                                 value={this.state.user.password}
                                 onChange={e => this.updateField(e)}
@@ -108,4 +109,3 @@ export default class UserCrud extends Component {
         )
     }
 }
-

@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "json-server --watch db.json --port 8000"
+    "start": "nodemon Login.jsx"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "json-server": "0.13.0"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2"
   }
 }
