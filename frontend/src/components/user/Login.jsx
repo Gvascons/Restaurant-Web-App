@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Main from '../template/Main'
 import axios from 'axios'
+import RestaurantService from '../../service/restaurant'
 
 const headerProps = {
     icon: 'user',
@@ -33,8 +34,14 @@ export default class Login extends Component {
         const url = baseUrl
         //axios.post(url,this.state.user)
         axios[method](url,user)
-            .then(res => alert(res.data.message))
-            .catch(err => alert("Something Went Wrong!"))
+            .then(res => {
+                RestaurantService.getAdmById(res.data.message[1])
+                localStorage.setItem('idAdm',res.data.message[1])
+                console.log(res.data.message[1])
+                window.location.href="/dash"
+                alert(res.data.message[0])
+            })
+            .catch(err => alert(err))
         /*
         axios[method](url)
             .then(function (response) {

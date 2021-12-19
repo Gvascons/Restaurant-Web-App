@@ -43,16 +43,16 @@ app.post('/login', (req, res) => {
   if (userCheck) {
     if (userCheck.password == req.body.password){
       res.status(200).send( {
-        message: "Successful Login!"
+        message: ["Successful Login!", userCheck.id]
       })
     }
     else {
-      res.status(200).send( {
+      res.status(400).send( {
         message: "Incorrect Password!"
       })
     }
   } else {
-    res.status(200).send( {
+    res.status(400).send( {
       message: "Invalid Login!"
     })
   }
@@ -152,4 +152,10 @@ app.post('/admin/deleteRestaurant/:index', (req, res) => {
   }
 
   return res.json()
+})
+
+app.get('/admin/:index', (req, res) => {
+  temp = {...admin[req.params.index]}
+  temp["password"] = '**'
+  return res.json(temp)
 })
