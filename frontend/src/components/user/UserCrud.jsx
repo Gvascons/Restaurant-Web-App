@@ -8,9 +8,9 @@ const headerProps = {
     subtitle: 'Cadastro de Usuário'
 }
 
-const baseUrl = 'http://localhost:8000/users'
+const baseUrl = 'http://localhost:8000/usercrud'
 const initialState = {
-    user: { name: '', password: ''},
+    user: { name: '', password: '', restaurants: []},
     list: []
 }
 
@@ -29,6 +29,14 @@ export default class UserCrud extends Component {
 
     save() {
         const user = this.state.user
+        const method = 'post'
+        const url = baseUrl
+        //axios.post(url,this.state.user)
+        axios[method](url,user)
+            .then(res => alert(res.data.message))
+            .catch(err => alert("Something Went Wrong!"))
+        /*
+        const user = this.state.user
         const method = user.id ? 'put' : 'post'
         const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
         axios[method](url, user)
@@ -36,6 +44,7 @@ export default class UserCrud extends Component {
                 const list = this.getUpdatedList(resp.data)
                 this.setState({ user: initialState.user, list })
             })
+        */
     }
 
     getUpdatedList(user, add = true) {

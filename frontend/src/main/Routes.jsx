@@ -8,7 +8,7 @@ import Login from '../components/user/Login'
 export default props => (
     <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/users" element={<UserCrud />} />
+        <Route path="/usercrud" element={<UserCrud />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Home />} />
     </Routes>

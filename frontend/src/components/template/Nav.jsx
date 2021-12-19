@@ -8,7 +8,7 @@ export default props =>
             <Link to="/">
                 <i className="fa fa-home"></i> Início
             </Link>
-            <Link to="/users">
+            <Link to="/usercrud">
                 <i className="fa fa-address-card"></i> Cadastro
             </Link>
             <Link to="/login">

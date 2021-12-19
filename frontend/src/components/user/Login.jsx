@@ -2,19 +2,18 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 import axios from 'axios'
 
-const r = React
-
 const headerProps = {
     icon: 'user',
     title: 'Login',
     subtitle: 'Entre na sua conta!'
 }
 
-const baseUrl = 'http://localhost:8000/users'
+const baseUrl = 'http://localhost:8000/login'
 const initialState = {
     user: { name: '', password: ''},
     list: []
 }
+
 export default class Login extends Component {
     state = { ...initialState }
 
@@ -30,8 +29,13 @@ export default class Login extends Component {
 
     login() {
         const user = this.state.user
-        const method = 'get'
+        const method = 'post'
         const url = baseUrl
+        //axios.post(url,this.state.user)
+        axios[method](url,user)
+            .then(res => alert(res.data.message))
+            .catch(err => alert("Something Went Wrong!"))
+        /*
         axios[method](url)
             .then(function (response) {
                 const arrayLength = response.data.length;
@@ -42,6 +46,7 @@ export default class Login extends Component {
                     }
                 alert('Algum dado não está correto!')
             });
+        */
     }
 
     getUpdatedList(user, add = true) {
