@@ -4,28 +4,42 @@ const app = express()
 const cors = require('cors')
 const port = 8000
 
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
+
 app.use(cors())
 app.use(bodyParser.json());
+app.use(express.json())
 
-users = [
+/*
+const users = [
   {
-    name: "Arthur Oliveira",
-    password: "arthuritoReiDelas",
-    restaurants: [],
-    id: 1
+    'name': "Arthur Oliveira",
+    'password': "arthuritoReiDelas",
+    'restaurants': [],
+    'id': 1
   }
 ]
-
+*/
 // ##### DB #####
 
 app.get('/', (req, res) => {
-  return res.json(users)
+  return res.json(admin)
+})
+
+app.get('/login', (req, res) => {
+  return res.json(admin)
+})
+
+app.get('/usercrud', (req, res) => {
+  return res.json(admin)
 })
 
 // ##### LOGIN #####
 
 app.post('/login', (req, res) => {
-  let userCheck = users.find(user => user.name == req.body.name);
+  let userCheck = admin.find(user => user.name == req.body.name);
   if (userCheck) {
     if (userCheck.password == req.body.password){
       res.status(200).send( {
@@ -47,21 +61,95 @@ app.post('/login', (req, res) => {
 // ##### USERCRUD #####
 
 app.post('/usercrud', (req, res) => {
-  let newUser = users.find(user => user.name == req.body.name);
+  let newUser = admin.find(user => user.name == req.body.name);
   if (newUser) {
     res.status(200).send( {
       message: "This User Already Exists!"
     })
   }
   else {
-    req.body['id'] = users.length + 1
-    users.push(req.body)
+    req.body['id'] = admin.length
+    admin.push(req.body)
     res.status(200).send( {
       message: "Registration Successfull!"
     })
   }
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+// #########################################################
+
+const admin = [
+  {
+    "name": "João",
+    "password": "123",
+    "restaurants": [
+      {
+        "name": "Ariana Comes e Bebês",
+        "tel": "03123",
+        "email": "ariana@grande.org",
+        "bairro": "Seven Rings",
+        "num": "666",
+        "city": "Rua",
+        "rua": "Cidade",
+        "price": "$$$",
+        "desc": "I wanna! I got it!",
+        "idRest": 0
+      },
+      {
+        "name": "Bolagude Foods",
+        "tel": "0123",
+        "email": "lucascalabria@ymail.com",
+        "bairro": "Boa Viagem",
+        "num": "666",
+        "city": "Rua",
+        "rua": "Rua aaaaaaa",
+        "price": "$$$",
+        "desc": "aaaaaa",
+        "idRest": 1
+      }
+    ],
+    "id": 0
+  }
+] 
+
+app.post('/admin/addRestaurant/:index', (req, res) =>{
+  const {index}  = req.params
+  let restaurant = req.body
+
+  const allRestaurants = admin[index]["restaurants"]
+  const tam = allRestaurants.length-1
+
+  if (tam==(-1)) restaurant.idRest=0
+  else restaurant.idRest = allRestaurants[tam]["idRest"]+1
+  
+
+  admin[index]["restaurants"].push(restaurant)
+  return res.json(true)
+}) 
+
+app.post('/admin/editRestaurant/:index', (req, res) =>{
+  const {index}  = req.params
+  let restaurant = req.body
+
+  if (index<admin[index]["restaurants"].length){
+      admin[index]["restaurants"][restaurant.idRest] = restaurant
+      return res.json(true)
+  }
+  else return res.json(false)
+})
+
+app.post('/admin/deleteRestaurant/:index', (req, res) => {
+  const { index } = req.params
+  const idRest = req.body.selected
+  const allRestaurants = admin[index]["restaurants"]
+
+  console.log(req.body.selected)
+
+  allRestaurants.splice(idRest, 1)
+
+  for(let i=idRest; i<allRestaurants.length; i++){
+      allRestaurants[i]["idRest"] -= 1
+  }
+
+  return res.json()
 })
