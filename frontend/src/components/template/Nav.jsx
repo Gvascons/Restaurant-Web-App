@@ -10,7 +10,10 @@ export default props => {
             <nav className="menu">
                 <Link to="/dash">
                     <i className="fa fa-home"></i> Início
-                </Link>      
+                </Link>
+                <Link to="/notifications">
+                    <i className="fa fa-bell"></i> Notificações
+                </Link>   
             </nav>
         </aside>
     )
@@ -25,7 +28,7 @@ export default props => {
             </Link>
             <Link to="/login">
                 <i className="fa fa-user"></i> Login
-            </Link>   
+            </Link>
         </nav>
     </aside>
     )

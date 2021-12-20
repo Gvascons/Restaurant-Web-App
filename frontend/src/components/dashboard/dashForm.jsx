@@ -90,7 +90,7 @@ export default function DashForm(){
                     size = "small"
                     href="/add" 
                     variant="contained"
-                >Add Restaurante</Button>
+                >Cadastrar<br/> Restaurante </Button>
 
                 <Button
                     size = "large" href="/" 

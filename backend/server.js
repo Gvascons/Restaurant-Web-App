@@ -54,6 +54,28 @@ const admin = [
         "idRest": 1
       }
     ],
+    "notifications": [
+      {
+        "title": "Pedido 1",
+        "content": "Hamburguer",
+        "id": 1
+      },
+      {
+        "title": "Pedido 2",
+        "content": "Pizza",
+        "id": 2
+      },
+      {
+        "title": "Pedido 3",
+        "content": "Suco",
+        "id": 3
+      },
+      {
+        "title": "Pedido 4",
+        "content": "Esfirra com milkshake",
+        "id": 4,
+      }
+    ],
     "id": 0
   }
 ] 
@@ -72,14 +94,13 @@ app.get('/usercrud', (req, res) => {
 
 // ##### LOGIN #####
 
-app.post('/login', (req, res, next) => {
+app.post('/login', (req, res) => {
   let userCheck = admin.find(user => user.name == req.body.name);
   if (userCheck) {
     if (userCheck.password == req.body.password){
       res.status(200).send( {
         message: ["Successful Login!", userCheck.id]
-      });
-      next();
+      })
     }
     else {
       res.status(400).send( {
@@ -155,6 +176,21 @@ app.post('/admin/deleteRestaurant/:index', (req, res) => {
 
   return res.json()
 })
+
+app.post('/admin/addOrder/:index', (req, res) =>{
+  const {index}  = req.params
+  let order = req.body
+
+  const allOrders = admin[index]["notifications"]
+  const tam = allOrders.length-1
+
+  if (tam==(-1)) order.id=0
+  else order.id = allOrders[tam]["id"]+1
+  
+
+  admin[index]["notifications"].push(order)
+  return res.json(admin[index]["notifications"])
+}) 
 
 app.get('/admin/:index', (req, res) => {
   temp = {...admin[req.params.index]}

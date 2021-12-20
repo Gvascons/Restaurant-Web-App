@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 import axios from 'axios'
 import RestaurantService from '../../service/restaurant'
-import DashPage from '../../pages/dashPage'
-import { Routes, Route, Router } from "react-router-dom";
-import { BrowserRouter } from 'react-router-dom'
+
 
 
 const headerProps = {
@@ -42,7 +40,7 @@ export default class Login extends Component {
                 window.localStorage.setItem('@restaurantes:login', true)
                 RestaurantService.getAdmById(res.data.message[1])
                 localStorage.setItem('idAdm',res.data.message[1])
-                alert(res.data.message[0])
+                //alert(res.data.message[0])
                 this.redirect()
             })
             .catch(err => alert(err))

@@ -169,7 +169,7 @@ export default function AddForm(props){
 
                     setEditedFlag(false)                
                     alert("Salvo")
-                    navigate(-1)
+                    window.location.href = '/dash'
                     
                 }
                 catch(error){
