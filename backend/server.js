@@ -72,13 +72,14 @@ app.get('/usercrud', (req, res) => {
 
 // ##### LOGIN #####
 
-app.post('/login', (req, res) => {
+app.post('/login', (req, res, next) => {
   let userCheck = admin.find(user => user.name == req.body.name);
   if (userCheck) {
     if (userCheck.password == req.body.password){
       res.status(200).send( {
         message: ["Successful Login!", userCheck.id]
-      })
+      });
+      next();
     }
     else {
       res.status(400).send( {
