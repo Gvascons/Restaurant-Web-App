@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import Main from '../template/Main'
 import axios from 'axios'
 import RestaurantService from '../../service/restaurant'
-import DashPage from '../../pages/dashPage'
-import Authenticator from '../../main/Authenticator'
-import { Routes, Route, Router } from "react-router-dom";
-import { BrowserRouter } from 'react-router-dom'
-
 
 const headerProps = {
     icon: 'user',
@@ -17,7 +12,7 @@ const headerProps = {
 const baseUrl = 'http://localhost:8000/login'
 const initialState = {
     user: { name: '', password: ''},
-    list: [], authenticated: false
+    list: []
 }
 
 export default class Login extends Component {
@@ -42,15 +37,11 @@ export default class Login extends Component {
             .then(res => {
                 RestaurantService.getAdmById(res.data.message[1])
                 localStorage.setItem('idAdm',res.data.message[1])
+                console.log(res.data.message[1])
+                window.location.href="/dash"
                 alert(res.data.message[0])
-                this.redirect()
             })
             .catch(err => alert(err))
-        }
-
-    redirect() {
-        window.location.href="/dash"
-    }
         /*
         axios[method](url)
             .then(function (response) {
@@ -63,7 +54,7 @@ export default class Login extends Component {
                 alert('Algum dado não está correto!')
             });
         */
-
+    }
 
     getUpdatedList(user, add = true) {
         const list = this.state.list.filter(u => u.id !== user.id)

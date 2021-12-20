@@ -40,7 +40,7 @@ export default function DashForm(){
 
     const handleDelete = () =>{
         (async function removeRestaurant(){
-            if (selected >= 0){
+            if (selected){
                 console.log(selected)
                 RestaurantService.deleteRestaurant(idAdm, {selected})
                 window.location.reload()

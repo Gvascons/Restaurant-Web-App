@@ -10,7 +10,7 @@ const headerProps = {
 
 const baseUrl = 'http://localhost:8000/usercrud'
 const initialState = {
-    user: { name: '', password: '', restaurants: []},
+    user: { name: '', password: '', restaurants: [], notifications: []},
     list: []
 }
 
