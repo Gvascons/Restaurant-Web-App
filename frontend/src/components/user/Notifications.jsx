@@ -28,29 +28,22 @@ export default class Notifications extends Component {
         };   
     }
 
-    componentWillMount() {
-        axios(baseUrl).then(resp => {
-            this.setState({ list: resp.data })
-            
-        })
-    }
-
-    getNotifications() {
+    componentDidMount() {
         const method = 'get'
         const url = baseUrl
         axios[method](url)
-            .then( (response) => {
-                const arrayLength = response.data.length;
-                for (var i = 0; i < arrayLength; i++)
-                    if(idAdm === response.data[i].id){
-                        allNotifications = response.data[i].notifications
-                        allNotifications.reverse()
-                        this.setState({
-                            notifications: response.data[i].notifications
-                        })
-                        console.log(allNotifications)
-                        return
-                    }
+            .then(response => {
+                console.log(response.data)
+
+                if (response.data) {
+                    response.data.forEach(item => {
+                        if (idAdm == item.id) {
+                            this.setState({
+                                notifications: [...item.notifications].reverse()
+                            })
+                        }
+                    })
+                }
             });
     }
 
@@ -59,7 +52,7 @@ export default class Notifications extends Component {
             <div className="form">
                 <div className="col-12 col-md-6">
                     <List>
-                        {this.notifications.map((data) => (
+                        {allNotifications && allNotifications.map((data) => (
                             <ListItem key={data.id}>
                             <p>{data.title} - </p>
                             <p>{data.content}</p>
@@ -74,7 +67,18 @@ export default class Notifications extends Component {
     render() {
         return (
             <Main {...headerProps}>
-                {this.renderForm()}
+                <div className="form">
+                    <div className="col-12 col-md-6">
+                        <List>
+                            {this.state.notifications.map((data) => (
+                                <ListItem key={data.id}>
+                                <p>{data.title} - </p>
+                                <p>{data.content}</p>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </div>
+                </div>
             </Main>
         )
     }

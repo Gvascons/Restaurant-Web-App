@@ -56,24 +56,24 @@ const admin = [
     ],
     "notifications": [
       {
-        "id": 1,
         "title": "Pedido 1",
-        "content": "Hamburguer"
+        "content": "Hamburguer",
+        "id": 1
       },
       {
-        "id": 2,
         "title": "Pedido 2",
-        "content": "Pizza"
+        "content": "Pizza",
+        "id": 2
       },
       {
-        "id": 3,
         "title": "Pedido 3",
-        "content": "Suco"
+        "content": "Suco",
+        "id": 3
       },
       {
-        "id": 4,
         "title": "Pedido 4",
-        "content": "Esfirra com milkshake"
+        "content": "Esfirra com milkshake",
+        "id": 4,
       }
     ],
     "id": 0
@@ -176,6 +176,21 @@ app.post('/admin/deleteRestaurant/:index', (req, res) => {
 
   return res.json()
 })
+
+app.post('/admin/addOrder/:index', (req, res) =>{
+  const {index}  = req.params
+  let order = req.body
+
+  const allOrders = admin[index]["notifications"]
+  const tam = allOrders.length-1
+
+  if (tam==(-1)) order.id=0
+  else order.id = allOrders[tam]["id"]+1
+  
+
+  admin[index]["notifications"].push(order)
+  return res.json(admin[index]["notifications"])
+}) 
 
 app.get('/admin/:index', (req, res) => {
   temp = {...admin[req.params.index]}

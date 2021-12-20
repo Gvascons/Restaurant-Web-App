@@ -15,7 +15,7 @@ export default props =>
                 <i className="fa fa-user"></i> Login
             </Link>
             <Link to="/notifications">
-                <i className="fa fa-notifications"></i> Notificações
+                <i className="fa fa-bell"></i> Notificações
             </Link>
         </nav>
     </aside>

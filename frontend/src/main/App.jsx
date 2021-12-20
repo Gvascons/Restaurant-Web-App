@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import './App.css'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import axios from 'axios'
 
@@ -14,34 +14,57 @@ let idAdm = Number(localStorage.getItem('idAdm'));
 
 const baseUrl = 'http://localhost:8000/login';
 
-var allNotifications = [];
-var lastId = 0;
-
 const App = () => {
 
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         const method = 'get'
-    //         const url = baseUrl
-    //         axios[method](url)
-    //             .then(function (response) {
-    //                 const arrayLength = response.data.length;
-    //                 for (var i = 0; i < arrayLength; i++)
-    //                     if(idAdm === response.data[i].id){
-    //                         allNotifications = {...response.data[i].notifications};
-    //                         if(lastId !==0 && lastId !== allNotifications[allNotifications.length-1].id){
-    //                             lastId = allNotifications[allNotifications.length-1].id;
-    //                             if (lastId !=0) alert('Novo pedido! Checar notificações');
-    //                         }
-    //                         else if(lastId==0 && allNotifications[allNotifications.length-1].id !== 0){
-    //                             lastId = allNotifications[allNotifications.length-1].id;
-    //                         }
-    //                         console.log(lastId)
-    //                         return
-    //                     }
-    //             });
-    //     }, 1000);
-    // }, []);
+    const [lastId, setLastId] = useState(-1)
+    const [initId, setInitId] = useState(-1)
+
+    useEffect(() => {
+        const method = 'get'
+            const url = baseUrl
+            axios[method](url)
+                .then(response => {
+                    if(response.data){
+                        response.data.forEach(item => {
+                            let lengthArray = item.notifications.length
+                            if(lengthArray!=0) setInitId(item.notifications[lengthArray-1].id)
+                        })
+                    }
+                })
+    }, []);
+
+    useEffect(() => {
+        setInterval(() => {
+            const method = 'get'
+            const url = baseUrl
+            axios[method](url)
+                .then(response => {
+                        if (response.data) {
+                            response.data.forEach(item => {
+                                let lengthArray = item.notifications.length
+
+                                if (idAdm == item.id) {
+                                    if(lengthArray!=0){
+                                        if (lastId !==-1 && lastId !== item.notifications[lengthArray-1].id) {
+                                            setLastId(item.notifications[lengthArray-1].id);
+                                        }
+                                        else if (lastId == -1 && item.notifications[lengthArray-1].id !== -1) {
+                                            setLastId(item.notifications[lengthArray-1].id);
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                });
+        }, 1000);
+    }, []);
+
+    useEffect(() => {
+        if(lastId !=-1 && lastId!=initId){
+            window.location.reload()
+            alert("Novo pedido !");
+        }
+    }, [lastId])
 
     return (
     <BrowserRouter>
