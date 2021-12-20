@@ -28,6 +28,7 @@ export default class UserCrud extends Component {
     }
 
     save() {
+        window.localStorage.setItem('@restaurantes:login', false)
         const user = this.state.user
         const method = 'post'
         const url = baseUrl

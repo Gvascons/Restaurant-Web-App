@@ -3,7 +3,6 @@ import Main from '../template/Main'
 import axios from 'axios'
 import RestaurantService from '../../service/restaurant'
 import DashPage from '../../pages/dashPage'
-import Authenticator from '../../main/Authenticator'
 import { Routes, Route, Router } from "react-router-dom";
 import { BrowserRouter } from 'react-router-dom'
 
@@ -40,6 +39,7 @@ export default class Login extends Component {
         //axios.post(url,this.state.user)
         axios[method](url,user)
             .then(res => {
+                window.localStorage.setItem('@restaurantes:login', true)
                 RestaurantService.getAdmById(res.data.message[1])
                 localStorage.setItem('idAdm',res.data.message[1])
                 alert(res.data.message[0])

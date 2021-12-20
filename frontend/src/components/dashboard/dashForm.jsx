@@ -50,6 +50,10 @@ export default function DashForm(){
         })()
     }
 
+    const handleQuit = () => {
+        window.localStorage.removeItem('@restaurantes:login')
+    }
+
     return(
         <Form id='aux'>
             <Grid container>
@@ -90,7 +94,7 @@ export default function DashForm(){
 
                 <Button
                     size = "large" href="/" 
-                    variant="contained"
+                    variant="contained" onClick = {handleQuit}
                 >Sair</Button>
             </Grid>
         </Form>

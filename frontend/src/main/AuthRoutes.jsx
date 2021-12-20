@@ -5,8 +5,6 @@ import Home from '../components/home/Home';
 import UserCrud from "../components/user/UserCrud";
 import Login from '../components/user/Login'
 
-import Authenticator from './Authenticator'
-
 
 /* */
 import AddPage from "../pages/addPage";
@@ -21,10 +19,7 @@ export default props => (
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Home />} />
 {/* */} 
-        {/*
-            <Route exact path = "/dash" element={<Authenticator />} />
-        */}
-        <Route exact path = "/dash" element={<Authenticator />} />
+        <Route exact path = "/dash" element={<DashPage />} />
         <Route exact path = "/add" element={<AddPage />} />
         <Route exact path = "/edit" element={<EditPage />} />
 {/* */}
