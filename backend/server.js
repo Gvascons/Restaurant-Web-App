@@ -127,7 +127,7 @@ app.post('/usercrud', (req, res) => {
     req.body['id'] = admin.length
     admin.push(req.body)
     res.status(200).send( {
-      message: "Registration Successfull!"
+      message: "Registration Successful!"
     })
   }
 })
@@ -153,12 +153,8 @@ app.post('/admin/addRestaurant/:index', (req, res) =>{
 app.post('/admin/editRestaurant/:index', (req, res) =>{
   const {index}  = req.params
   let restaurant = req.body
-
-  if (index<admin[index]["restaurants"].length){
-      admin[index]["restaurants"][restaurant.idRest] = restaurant
-      return res.json(true)
-  }
-  else return res.json(false)
+  admin[index]["restaurants"][restaurant.idRest] = restaurant
+  return res.json(true)
 })
 
 app.post('/admin/deleteRestaurant/:index', (req, res) => {
