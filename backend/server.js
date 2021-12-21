@@ -139,6 +139,12 @@ app.post('/admin/addRestaurant/:index', (req, res) =>{
   const {index}  = req.params
   let restaurant = req.body
 
+  if (index >= admin.length){
+    res.send({
+      message: "User Does Not Exist" 
+    })
+  }
+
   const allRestaurants = admin[index]["restaurants"]
   const tam = allRestaurants.length-1
 

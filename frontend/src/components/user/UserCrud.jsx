@@ -28,14 +28,18 @@ export default class UserCrud extends Component {
     }
 
     save() {
-        window.localStorage.setItem('@restaurantes:login', false)
         const user = this.state.user
         const method = 'post'
         const url = baseUrl
         //axios.post(url,this.state.user)
         axios[method](url,user)
-            .then(res => alert(res.data.message))
+            .then(res => {
+                alert(res.data.message)
+                window.localStorage.setItem('@restaurantes:login', true)
+                window.location.href='/dash'
+            })
             .catch(err => alert("Something Went Wrong!"))
+
         /*
         const user = this.state.user
         const method = user.id ? 'put' : 'post'
