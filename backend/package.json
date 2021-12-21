@@ -10,14 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "json-server": "0.13.0"
   },
   "devDependencies": {
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "express": "^4.17.2",
-    "jasmine": "^3.10.0",
-    "nodemon": "^2.0.15",
-    "request-promise": "^4.2.6"
+    "nodemon": "^2.0.15"
   }
 }
