@@ -139,18 +139,13 @@ app.post('/admin/addRestaurant/:index', (req, res) =>{
   const {index}  = req.params
   let restaurant = req.body
 
-  if (index >= admin.length){
-    res.send({
-      message: "User Does Not Exist" 
-    })
-  }
+  if(index>=admin.length) return res.json(false)
 
   const allRestaurants = admin[index]["restaurants"]
   const tam = allRestaurants.length-1
 
   if (tam==(-1)) restaurant.idRest=0
   else restaurant.idRest = allRestaurants[tam]["idRest"]+1
-  
 
   admin[index]["restaurants"].push(restaurant)
   return res.json(true)
@@ -159,24 +154,27 @@ app.post('/admin/addRestaurant/:index', (req, res) =>{
 app.post('/admin/editRestaurant/:index', (req, res) =>{
   const {index}  = req.params
   let restaurant = req.body
+
+  if(index>=admin.length || restaurant.idRest>=admin[index]["restaurants"].length) return res.json(false)
+
   admin[index]["restaurants"][restaurant.idRest] = restaurant
   return res.json(true)
 })
 
-app.post('/admin/deleteRestaurant/:index', (req, res) => {
+app.post('/admin/deleteRestaurant/:index', (req, res) => { 
   const { index } = req.params
   const idRest = req.body.selected
+
+  if(index>=admin.length || idRest>=admin[index]["restaurants"].length) return res.json(false)
+
   const allRestaurants = admin[index]["restaurants"]
-
-  console.log(req.body.selected)
-
   allRestaurants.splice(idRest, 1)
 
   for(let i=idRest; i<allRestaurants.length; i++){
       allRestaurants[i]["idRest"] -= 1
   }
 
-  return res.json()
+  return res.json(true)
 })
 
 app.post('/admin/addOrder/:index', (req, res) =>{

@@ -42,8 +42,12 @@ export default function DashForm(){
         (async function removeRestaurant(){
             if (selected >= 0){
                 console.log(selected)
-                RestaurantService.deleteRestaurant(idAdm, {selected})
-                window.location.reload()
+                const data = await RestaurantService.deleteRestaurant(idAdm, {selected})
+                if (data){
+                    alert("Restaurante removido com sucesso")
+                    window.location.reload()
+                }
+                else alert("Erro de remoção")
             }
             else alert("Selecione um Restaurante")
             
