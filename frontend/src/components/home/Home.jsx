@@ -6,5 +6,5 @@ export default props =>
         subtitle="Página Home.">
         <div className='display-4'>Bem Vindo!</div>
         <hr />
-        <p className="mb-0">Seja bem vindo ao nosso restaurante !</p>
+        <p className="mb-0">Realize o login ou crie uma conta para acessar.</p>
     </Main>
