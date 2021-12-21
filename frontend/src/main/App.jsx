@@ -28,7 +28,7 @@ const App = () => {
                     if(response.data){
                         response.data.forEach(item => {
                             let lengthArray = item.notifications.length
-                            if(lengthArray!=0) setInitId(item.notifications[lengthArray-1].id)
+                            if(lengthArray!=0 && idAdm==item.id) setInitId(item.notifications[lengthArray-1].id)
                         })
                     }
                 })
@@ -46,10 +46,7 @@ const App = () => {
 
                                 if (idAdm == item.id) {
                                     if(lengthArray!=0){
-                                        if (lastId !==-1 && lastId !== item.notifications[lengthArray-1].id) {
-                                            setLastId(item.notifications[lengthArray-1].id);
-                                        }
-                                        else if (lastId == -1 && item.notifications[lengthArray-1].id !== -1) {
+                                        if (lastId == -1 || lastId != -1 && lastId != item.notifications[lengthArray-1].id) {
                                             setLastId(item.notifications[lengthArray-1].id);
                                         }
                                     }
