@@ -35,8 +35,8 @@ export default class UserCrud extends Component {
         axios[method](url,user)
             .then(res => {
                 alert(res.data.message)
-                window.localStorage.setItem('@restaurantes:login', true)
-                window.location.href='/dash'
+                if(res.data.message == 'Registration Successful!')
+                    window.location.href='/login'
             })
             .catch(err => alert("Something Went Wrong!"))
 

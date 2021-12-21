@@ -11,7 +11,6 @@ import Footer from '../components/template/Footer'
 
 import AuthRoutes from './AuthRoutes'
 import NoAuthRoutes from './NoAuthRoutes'
-import { modalClasses, modalUnstyledClasses } from '@mui/material'
 
 let idAdm = Number(localStorage.getItem('idAdm')); 
 
